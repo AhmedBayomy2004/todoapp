@@ -5,7 +5,7 @@ import 'package:todoapp/models/models.dart';
 import 'package:todoapp/widgets/widgets.dart';
 
 class Home extends StatefulWidget {
-  Home({super.key});
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -36,8 +36,9 @@ class _HomeState extends State<Home> {
 
     return Task(
       model: task,
-      oncheck: () {
+      oncheck: () async {
         task.done = !task.done;
+        await mybox.put(key, task);
         setState(() {
           reload();
         });
@@ -71,7 +72,6 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-
     searchBox = Searchbox(
       onchanged: (String query) {
         setState(() {}); // Triggers rebuild when search text changes
@@ -170,6 +170,7 @@ class _HomeState extends State<Home> {
 
                                       reload();
 
+                                      if (!context.mounted) return;
                                       Navigator.pop(context);
                                       titleController.clear();
                                       subtitleController.clear();

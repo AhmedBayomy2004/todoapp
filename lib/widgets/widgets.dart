@@ -6,7 +6,7 @@ class Task extends StatelessWidget {
   final void Function()? ondelete;
   final void Function()? oncheck;
 
-  Task({
+  const Task({
     super.key,
     required this.model,
     required this.ondelete,
